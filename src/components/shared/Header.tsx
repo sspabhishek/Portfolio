@@ -27,20 +27,22 @@ export default function Header() {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 theme-transition ${scrolled ? 'py-3' : 'py-5'
-                }`}
+            className={`fixed top-0 left-0 right-0 z-50 theme-transition ${scrolled ? 'py-3' : 'py-5'}`}
             style={{
                 backgroundColor: scrolled ? 'var(--header-bg)' : 'transparent',
                 backdropFilter: scrolled ? 'blur(16px)' : 'none',
-                borderBottom: scrolled ? '1px solid var(--border)' : 'none',
+                borderBottom: scrolled ? '2px solid var(--border)' : 'none',
             }}
         >
             <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-                {/* Logo */}
+                {/* Logo — hand-drawn style */}
                 <Link
                     href="/"
-                    className="text-xl font-bold tracking-tight theme-transition font-mono"
-                    style={{ color: 'var(--accent)' }}
+                    className="text-2xl font-bold tracking-tight theme-transition"
+                    style={{
+                        color: 'var(--accent)',
+                        fontFamily: isCliMode ? 'JetBrains Mono, monospace' : 'Kalam, cursive',
+                    }}
                     aria-label="Home"
                 >
                     {isCliMode ? '~/abhishek' : 'A.'}
@@ -52,8 +54,11 @@ export default function Header() {
                         <li key={link.href}>
                             <Link
                                 href={link.href}
-                                className="text-sm font-medium theme-transition hover:opacity-100 opacity-70"
-                                style={{ color: 'var(--text-primary)' }}
+                                className="text-lg theme-transition hover:opacity-100 opacity-70"
+                                style={{
+                                    color: 'var(--text-primary)',
+                                    fontFamily: isCliMode ? 'JetBrains Mono, monospace' : 'Patrick Hand, cursive',
+                                }}
                             >
                                 {isCliMode ? `> ${link.label.toLowerCase()}` : link.label}
                             </Link>
@@ -63,40 +68,46 @@ export default function Header() {
 
                 {/* Mode Toggle + Mobile Menu */}
                 <div className="flex items-center gap-3">
-                    {/* Classic / CLI Toggle */}
+                    {/* CLI / UI Toggle — CLI first, UI second */}
                     <button
                         onClick={toggleMode}
-                        className="relative flex items-center w-[88px] h-9 rounded-full px-1 theme-transition cursor-pointer"
+                        className="relative flex items-center w-[88px] h-9 px-1 theme-transition cursor-pointer"
                         style={{
-                            backgroundColor: 'var(--bg-card)',
-                            border: '1px solid var(--border)',
+                            backgroundColor: isCliMode ? 'var(--bg-card)' : 'var(--bg-card)',
+                            border: isCliMode ? '1px solid var(--border)' : '3px solid var(--border)',
+                            borderRadius: isCliMode ? '9999px' : 'var(--radius-wobbly-sm)',
                         }}
-                        aria-label={`Switch to ${isCliMode ? 'Classic' : 'CLI'} mode`}
-                        title={`Switch to ${isCliMode ? 'Classic' : 'CLI'} mode`}
+                        aria-label={`Switch to ${isCliMode ? 'UI' : 'CLI'} mode`}
+                        title={`Switch to ${isCliMode ? 'UI' : 'CLI'} mode`}
                     >
                         <span
-                            className="absolute w-10 h-7 rounded-full theme-transition"
+                            className="absolute w-10 h-7 theme-transition"
                             style={{
                                 backgroundColor: 'var(--accent)',
-                                transform: isCliMode ? 'translateX(44px)' : 'translateX(0px)',
+                                borderRadius: isCliMode ? '9999px' : 'var(--radius-wobbly-sm)',
+                                /* CLI is left (0px), UI is right (44px) */
+                                transform: isCliMode ? 'translateX(0px)' : 'translateX(44px)',
                                 transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                             }}
                         />
                         <span
                             className="relative z-10 flex-1 text-center text-xs font-semibold"
                             style={{
-                                color: isCliMode ? 'var(--text-muted)' : 'var(--bg-primary)',
-                            }}
-                        >
-                            UI
-                        </span>
-                        <span
-                            className="relative z-10 flex-1 text-center text-xs font-semibold font-mono"
-                            style={{
                                 color: isCliMode ? 'var(--bg-primary)' : 'var(--text-muted)',
+                                fontFamily: 'JetBrains Mono, monospace',
                             }}
                         >
                             CLI
+                        </span>
+                        <span
+                            className="relative z-10 flex-1 text-center text-xs font-semibold"
+                            style={{
+                                color: isCliMode ? 'var(--text-muted)' : 'var(--bg-primary)',
+                                fontFamily: isCliMode ? 'JetBrains Mono, monospace' : 'Patrick Hand, cursive',
+                                fontSize: isCliMode ? undefined : '0.85rem',
+                            }}
+                        >
+                            UI
                         </span>
                     </button>
 
@@ -125,16 +136,22 @@ export default function Header() {
                 {/* Mobile Menu Dropdown */}
                 {menuOpen && (
                     <div
-                        className="absolute top-full left-0 right-0 md:hidden glass theme-transition"
-                        style={{ borderTop: '1px solid var(--border)' }}
+                        className="absolute top-full left-0 right-0 md:hidden theme-transition"
+                        style={{
+                            borderTop: '2px dashed var(--border)',
+                            backgroundColor: 'var(--bg-primary)',
+                        }}
                     >
                         <ul className="flex flex-col p-6 gap-4">
                             {navLinks.map((link) => (
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
-                                        className="text-lg font-medium theme-transition"
-                                        style={{ color: 'var(--text-primary)' }}
+                                        className="text-xl theme-transition"
+                                        style={{
+                                            color: 'var(--text-primary)',
+                                            fontFamily: isCliMode ? 'JetBrains Mono, monospace' : 'Patrick Hand, cursive',
+                                        }}
                                         onClick={() => setMenuOpen(false)}
                                     >
                                         {link.label}

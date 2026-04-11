@@ -84,42 +84,51 @@ export default function EngineeringWorkflow() {
             <div className="max-w-6xl mx-auto">
                 {/* Heading */}
                 <div className="workflow-heading text-center mb-16 opacity-0">
-                    <p
-                        className="text-sm font-medium tracking-[0.3em] uppercase mb-4"
-                        style={{ color: 'var(--accent)' }}
-                    >
-                        Process
-                    </p>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                    <p className="sketch-section-label mb-4">Process</p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ fontFamily: 'Kalam, cursive' }}>
                         Engineering Workflow
                     </h2>
                     <p
-                        style={{ color: 'var(--text-secondary)' }}
                         className="max-w-2xl mx-auto leading-relaxed"
+                        style={{ color: 'var(--text-secondary)', fontFamily: 'Patrick Hand, cursive', fontSize: '1.15rem' }}
                     >
                         This portfolio was built using a modern AI-assisted development workflow,
                         combining human architectural decisions with advanced coding models.
                     </p>
                 </div>
 
-                {/* Divider */}
+                {/* Dashed Divider */}
                 <div
                     className="mx-auto mb-12"
                     style={{
-                        width: 60,
-                        height: 1,
-                        backgroundColor: 'var(--accent)',
-                        opacity: 0.4,
+                        width: '80px',
+                        height: '0',
+                        borderTop: '3px dashed var(--border)',
+                        opacity: 0.3,
                     }}
                 />
 
                 {/* Cards */}
                 <div className="workflow-cards grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Core Stack */}
-                    <div className="workflow-card rounded-card p-6 md:p-8 theme-transition glass opacity-0">
+                    <div
+                        className="workflow-card sketch-card p-6 md:p-8 opacity-0"
+                        style={{ transform: 'rotate(-0.5deg)' }}
+                    >
+                        {/* Tape decoration */}
+                        <div
+                            className="absolute -top-3 left-1/2 -translate-x-1/2 z-10"
+                            style={{
+                                width: '70px',
+                                height: '20px',
+                                background: 'rgba(200, 200, 180, 0.55)',
+                                borderRadius: '2px',
+                                transform: 'translateX(-50%) rotate(-1deg)',
+                            }}
+                        />
                         <h3
                             className="text-lg font-semibold mb-6"
-                            style={{ color: 'var(--accent)' }}
+                            style={{ color: 'var(--accent)', fontFamily: 'Kalam, cursive', fontSize: '1.3rem' }}
                         >
                             Core Stack
                         </h3>
@@ -127,13 +136,10 @@ export default function EngineeringWorkflow() {
                             {coreStack.map((tech) => (
                                 <li
                                     key={tech}
-                                    className="flex items-center gap-3 text-sm"
-                                    style={{ color: 'var(--text-primary)' }}
+                                    className="flex items-center gap-3"
+                                    style={{ color: 'var(--text-primary)', fontFamily: 'Patrick Hand, cursive', fontSize: '1.1rem' }}
                                 >
-                                    <span
-                                        className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                                        style={{ backgroundColor: 'var(--accent)' }}
-                                    />
+                                    <span style={{ color: 'var(--accent)', fontWeight: 700 }}>✦</span>
                                     {tech}
                                 </li>
                             ))}
@@ -141,10 +147,22 @@ export default function EngineeringWorkflow() {
                     </div>
 
                     {/* AI-Assisted Workflow */}
-                    <div className="workflow-card rounded-card p-6 md:p-8 theme-transition glass opacity-0">
+                    <div
+                        className="workflow-card sketch-card p-6 md:p-8 opacity-0"
+                        style={{ transform: 'rotate(0.5deg)' }}
+                    >
+                        {/* Tack decoration */}
+                        <div
+                            className="absolute -top-2 left-8 w-4 h-4 rounded-full z-10"
+                            style={{
+                                backgroundColor: 'var(--accent-blue)',
+                                border: '2px solid var(--border)',
+                                boxShadow: '1px 1px 0px 0px var(--border)',
+                            }}
+                        />
                         <h3
                             className="text-lg font-semibold mb-6"
-                            style={{ color: 'var(--accent)' }}
+                            style={{ color: 'var(--accent)', fontFamily: 'Kalam, cursive', fontSize: '1.3rem' }}
                         >
                             AI-Assisted Workflow
                         </h3>
@@ -152,15 +170,17 @@ export default function EngineeringWorkflow() {
                             {aiWorkflow.map((item) => (
                                 <li
                                     key={item.tool}
-                                    className="flex items-start gap-3 text-sm"
-                                    style={{ color: 'var(--text-primary)' }}
+                                    className="flex items-start gap-3"
+                                    style={{ color: 'var(--text-primary)', fontFamily: 'Patrick Hand, cursive', fontSize: '1.1rem' }}
                                 >
                                     <span
-                                        className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5"
-                                        style={{ backgroundColor: 'var(--accent)' }}
-                                    />
+                                        className="mt-1.5 shrink-0"
+                                        style={{ color: 'var(--accent-blue)', fontWeight: 700 }}
+                                    >
+                                        →
+                                    </span>
                                     <span>
-                                        <span className="font-medium">{item.tool}</span>
+                                        <span className="font-bold" style={{ fontFamily: 'Kalam, cursive' }}>{item.tool}</span>
                                         <span style={{ color: 'var(--text-secondary)' }}>
                                             {' — '}{item.role}
                                         </span>
@@ -173,8 +193,13 @@ export default function EngineeringWorkflow() {
 
                 {/* Closing line */}
                 <p
-                    className="workflow-closing text-center text-sm mt-12 opacity-0"
-                    style={{ color: 'var(--text-muted)' }}
+                    className="workflow-closing text-center mt-12 opacity-0"
+                    style={{
+                        color: 'var(--text-muted)',
+                        fontFamily: 'Patrick Hand, cursive',
+                        fontSize: '1rem',
+                        fontStyle: 'italic',
+                    }}
                 >
                     All architecture, decisions, and refinements were validated and customized manually.
                 </p>

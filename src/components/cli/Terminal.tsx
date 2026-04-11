@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useThemeStore } from '@/store/theme';
 import { executeCommand, getAutocompleteSuggestions } from '@/lib/commands';
-import type { TerminalLine, Theme } from '@/types';
+import type { TerminalLine } from '@/types';
 
 let lineIdCounter = 0;
 function genId(): string {
@@ -62,13 +62,13 @@ function renderRichLine(text: string | undefined): React.ReactNode {
 
 const WELCOME_LINES: TerminalLine[] = [
     { id: 'w0', type: 'system', content: '' },
-    { id: 'w1', type: 'system', content: '  +----------------------------------------------+' },
-    { id: 'w2', type: 'system', content: '  |                                              |' },
-    { id: 'w3', type: 'system', content: '  |     Welcome to Abhishek\'s Portfolio CLI      |' },
-    { id: 'w4', type: 'system', content: '  |                                              |' },
-    { id: 'w5', type: 'system', content: '  |  Type \'help\' to get started                  |' },
-    { id: 'w6', type: 'system', content: '  |                                              |' },
-    { id: 'w7', type: 'system', content: '  +----------------------------------------------+' },
+    { id: 'w1', type: 'system', content: '  +---------------------------------+' },
+    { id: 'w2', type: 'system', content: '  |                                 |' },
+    { id: 'w3', type: 'system', content: '  |   Welcome to Abhishek\'s CLI     |' },
+    { id: 'w4', type: 'system', content: '  |                                 |' },
+    { id: 'w5', type: 'system', content: '  |  Type \'help\' to get started     |' },
+    { id: 'w6', type: 'system', content: '  |                                 |' },
+    { id: 'w7', type: 'system', content: '  +---------------------------------+' },
     { id: 'w8', type: 'system', content: '' },
 ];
 
@@ -82,7 +82,6 @@ export default function Terminal() {
     const inputRef = useRef<HTMLInputElement>(null);
     const terminalRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
-    const setTheme = useThemeStore((s) => s.setTheme);
 
     useEffect(() => {
         if (terminalRef.current) {
@@ -155,12 +154,6 @@ export default function Terminal() {
                 break;
             case 'output': {
                 const parts = trimmed.split(/\s+/);
-                if (parts[0]?.toLowerCase() === 'theme' && parts[1]) {
-                    const valid = ['classic', 'dark', 'light'];
-                    if (valid.includes(parts[1].toLowerCase())) {
-                        setTheme(parts[1].toLowerCase() as Theme);
-                    }
-                }
                 if (parts[0]?.toLowerCase() === 'resume') {
                     setTimeout(() => {
                         const link = document.createElement('a');
@@ -173,7 +166,7 @@ export default function Terminal() {
                 break;
             }
         }
-    }, [input, isAnimating, typewriterOutput, router, setTheme]);
+    }, [input, isAnimating, typewriterOutput, router]);
 
     const handleKeyDown = useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -237,7 +230,7 @@ export default function Terminal() {
 
     return (
         <div
-            className="min-h-screen pt-20 pb-12 px-4 md:px-8 lg:px-16 cursor-text"
+            className="min-h-screen pt-20 pb-6 px-3 sm:px-4 md:px-8 lg:px-16 cursor-text"
             onClick={() => inputRef.current?.focus()}
         >
             {/* Terminal window card */}
@@ -250,31 +243,34 @@ export default function Terminal() {
             >
                 {/* Title bar */}
                 <div
-                    className="flex items-center px-4 py-3 gap-3"
+                    className="flex items-center px-3 sm:px-4 py-2.5 sm:py-3 gap-2 sm:gap-3"
                     style={{
                         backgroundColor: 'var(--bg-card)',
                         borderBottom: '1px solid var(--border)',
                     }}
                 >
-                    <div className="flex gap-2">
-                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FF5F57' }} />
-                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FEBC2E' }} />
-                        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#28C840' }} />
+                    <div className="flex gap-1.5 sm:gap-2">
+                        <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full" style={{ backgroundColor: '#FF5F57' }} />
+                        <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full" style={{ backgroundColor: '#FEBC2E' }} />
+                        <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full" style={{ backgroundColor: '#28C840' }} />
                     </div>
                     <span
-                        className="flex-1 text-center text-xs terminal-font"
+                        className="flex-1 text-center text-[10px] sm:text-xs terminal-font truncate"
                         style={{ color: 'var(--text-muted)' }}
                     >
                         abhishek@portfolio:~
                     </span>
-                    <div className="w-14" />
+                    <div className="w-10 sm:w-14" />
                 </div>
 
                 {/* Terminal body */}
                 <div
                     ref={terminalRef}
-                    className="overflow-y-auto terminal-font p-4 md:p-6"
-                    style={{ minHeight: '60vh', maxHeight: '70vh' }}
+                    className="overflow-y-auto overflow-x-hidden terminal-font p-3 sm:p-4 md:p-6"
+                    style={{
+                        minHeight: 'calc(100dvh - 160px)',
+                        maxHeight: 'calc(100dvh - 120px)',
+                    }}
                     role="log"
                     aria-live="polite"
                     aria-label="Terminal output"
@@ -283,8 +279,13 @@ export default function Terminal() {
                     {lines.map((line) => (
                         <div
                             key={line.id}
-                            className="min-h-[1.4em] text-[13px] md:text-sm leading-relaxed whitespace-pre-wrap break-words"
-                            style={{ color: getLineColor(line.type) }}
+                            className="min-h-[1.4em] text-[12px] sm:text-[13px] md:text-sm leading-relaxed break-all sm:break-words"
+                            style={{
+                                color: getLineColor(line.type),
+                                whiteSpace: 'pre-wrap',
+                                wordBreak: 'break-word',
+                                overflowWrap: 'anywhere',
+                            }}
                         >
                             {line.type === 'input' ? (
                                 <>
@@ -300,17 +301,17 @@ export default function Terminal() {
                     ))}
 
                     {/* Active input line */}
-                    <div className="flex items-center min-h-[1.4em] text-[13px] md:text-sm mt-1">
-                        <span style={{ color: 'var(--accent)' }}>{'> '}</span>
-                        <span style={{ color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>User</span>
-                        <span style={{ color: 'var(--text-muted)' }}>{' > '}</span>
+                    <div className="flex items-center min-h-[1.4em] text-[12px] sm:text-[13px] md:text-sm mt-1">
+                        <span style={{ color: 'var(--accent)' }} className="shrink-0">{'> '}</span>
+                        <span style={{ color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: '3px' }} className="shrink-0">User</span>
+                        <span style={{ color: 'var(--text-muted)' }} className="shrink-0">{' > '}</span>
                         <input
                             ref={inputRef}
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            className="flex-1 bg-transparent outline-none focus:outline-none focus:ring-0 terminal-font text-[13px] md:text-sm"
+                            className="flex-1 min-w-0 bg-transparent outline-none focus:outline-none focus:ring-0 terminal-font text-[12px] sm:text-[13px] md:text-sm"
                             style={{ color: 'var(--text-primary)', outline: 'none', boxShadow: 'none' }}
                             spellCheck={false}
                             autoComplete="off"
@@ -323,9 +324,9 @@ export default function Terminal() {
             </div>
 
             {/* Focus hint */}
-            <div className="max-w-5xl mx-auto mt-4 text-right">
-                <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                    Press <kbd className="px-1.5 py-0.5 rounded text-[10px] font-mono" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}>/</kbd> to focus terminal
+            <div className="max-w-5xl mx-auto mt-3 sm:mt-4 text-right">
+                <p className="text-[10px] sm:text-xs" style={{ color: 'var(--text-muted)' }}>
+                    Press <kbd className="px-1 sm:px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-mono" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}>/</kbd> to focus terminal
                 </p>
             </div>
         </div>

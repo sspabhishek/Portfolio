@@ -31,26 +31,28 @@ const educationData = [
     },
 ];
 
-/* ── Score Badge ── */
+/* ── Score Badge — hand-drawn circle ── */
 function ScoreBadge({ score, label }: { score: string; label: string }) {
     return (
         <div
-            className="flex flex-col items-center justify-center rounded-2xl px-5 py-4 min-w-[100px] border theme-transition"
+            className="flex flex-col items-center justify-center min-w-[100px] px-5 py-4"
             style={{
-                background: 'linear-gradient(135deg, var(--bg-secondary), var(--bg-card))',
-                borderColor: 'var(--accent)',
-                boxShadow: '0 0 24px rgba(212, 175, 55, 0.08)',
+                border: '3px solid var(--accent)',
+                borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                backgroundColor: 'var(--postit-yellow)',
+                boxShadow: '3px 3px 0px 0px rgba(45,45,45,0.1)',
+                transform: 'rotate(-2deg)',
             }}
         >
             <span
                 className="text-2xl md:text-3xl font-black tracking-tight"
-                style={{ color: 'var(--accent)' }}
+                style={{ color: 'var(--accent)', fontFamily: 'Kalam, cursive' }}
             >
                 {score}
             </span>
             <span
                 className="text-[10px] font-bold tracking-[0.15em] uppercase mt-1"
-                style={{ color: 'var(--text-muted)' }}
+                style={{ color: 'var(--text-secondary)', fontFamily: 'Patrick Hand, cursive' }}
             >
                 {label}
             </span>
@@ -59,20 +61,19 @@ function ScoreBadge({ score, label }: { score: string; label: string }) {
 }
 
 /* ── Education Card ── */
-function EducationCard({ edu }: { edu: typeof educationData[number] }) {
+function EducationCard({ edu, index }: { edu: typeof educationData[number]; index: number }) {
     return (
         <div
-            className="group relative rounded-2xl p-6 md:p-8 border overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl theme-transition"
-            style={{
-                backgroundColor: 'var(--bg-card)',
-                borderColor: 'var(--border)',
-            }}
+            className="sketch-card group relative p-6 md:p-8 overflow-hidden transition-all duration-100 hover:-translate-y-1"
+            style={{ transform: `rotate(${index % 2 === 0 ? -0.5 : 0.5}deg)` }}
         >
-            {/* Subtle gradient overlay on hover */}
+            {/* Tack decoration */}
             <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                className="absolute -top-2 left-8 w-4 h-4 rounded-full z-10"
                 style={{
-                    background: 'radial-gradient(ellipse at top right, rgba(212,175,55,0.04), transparent 70%)',
+                    backgroundColor: index === 0 ? 'var(--accent)' : 'var(--accent-blue)',
+                    border: '2px solid var(--border)',
+                    boxShadow: '1px 1px 0px 0px var(--border)',
                 }}
             />
 
@@ -90,13 +91,13 @@ function EducationCard({ edu }: { edu: typeof educationData[number] }) {
                         <div>
                             <h3
                                 className="text-lg md:text-xl font-bold leading-snug"
-                                style={{ color: 'var(--accent)' }}
+                                style={{ color: 'var(--accent)', fontFamily: 'Kalam, cursive' }}
                             >
                                 {edu.degree}
                             </h3>
                             <p
                                 className="text-sm md:text-base font-semibold"
-                                style={{ color: 'var(--text-primary)' }}
+                                style={{ color: 'var(--text-primary)', fontFamily: 'Kalam, cursive' }}
                             >
                                 {edu.field}
                             </p>
@@ -104,42 +105,43 @@ function EducationCard({ edu }: { edu: typeof educationData[number] }) {
                     </div>
 
                     {/* Institution */}
-                    <p className="text-sm mb-1 ml-[calc(2rem+0.75rem)]" style={{ color: 'var(--text-secondary)' }}>
+                    <p
+                        className="text-sm mb-1 ml-[calc(2rem+0.75rem)]"
+                        style={{ color: 'var(--text-secondary)', fontFamily: 'Patrick Hand, cursive', fontSize: '1rem' }}
+                    >
                         {edu.institution}
                     </p>
 
                     {/* Period & Location */}
-                    <div className="flex flex-wrap items-center gap-3 text-xs ml-[calc(2rem+0.75rem)]" style={{ color: 'var(--text-muted)' }}>
+                    <div
+                        className="flex flex-wrap items-center gap-3 text-xs ml-[calc(2rem+0.75rem)]"
+                        style={{ color: 'var(--text-muted)', fontFamily: 'Patrick Hand, cursive', fontSize: '0.9rem' }}
+                    >
                         <span className="inline-flex items-center gap-1.5">
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                                <line x1="16" y1="2" x2="16" y2="6" />
-                                <line x1="8" y1="2" x2="8" y2="6" />
-                                <line x1="3" y1="10" x2="21" y2="10" />
-                            </svg>
-                            {edu.period}
+                            📅 {edu.period}
                         </span>
                         <span className="inline-flex items-center gap-1.5">
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                <circle cx="12" cy="10" r="3" />
-                            </svg>
-                            {edu.location}
+                            📍 {edu.location}
                         </span>
                     </div>
 
                     {/* Achievements */}
                     {edu.achievements.length > 0 && (
                         <div className="mt-4 ml-[calc(2rem+0.75rem)]">
-                            <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: 'var(--accent)' }}>
+                            <p
+                                className="text-[10px] font-bold tracking-[0.2em] uppercase mb-2"
+                                style={{ color: 'var(--accent)', fontFamily: 'Patrick Hand, cursive', fontSize: '0.8rem' }}
+                            >
                                 Achievements
                             </p>
                             <ul className="space-y-1.5">
                                 {edu.achievements.map((a, i) => (
-                                    <li key={i} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                                        <svg className="w-3.5 h-3.5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--accent)' }}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                                        </svg>
+                                    <li
+                                        key={i}
+                                        className="flex items-start gap-2 leading-relaxed"
+                                        style={{ color: 'var(--text-secondary)', fontFamily: 'Patrick Hand, cursive', fontSize: '0.95rem' }}
+                                    >
+                                        <span style={{ color: 'var(--accent)' }}>✓</span>
                                         {a}
                                     </li>
                                 ))}
@@ -201,13 +203,8 @@ export default function Education() {
             <div className="max-w-5xl mx-auto">
                 {/* Section heading */}
                 <div className="edu-heading mb-12 opacity-0">
-                    <p
-                        className="text-sm font-medium tracking-[0.3em] uppercase mb-4"
-                        style={{ color: 'var(--accent)' }}
-                    >
-                        Education
-                    </p>
-                    <h2 className="text-3xl md:text-5xl font-bold">
+                    <p className="sketch-section-label mb-4">Education</p>
+                    <h2 className="text-3xl md:text-5xl font-bold" style={{ fontFamily: 'Kalam, cursive' }}>
                         Academic Background
                     </h2>
                 </div>
@@ -216,7 +213,7 @@ export default function Education() {
                 <div className="edu-cards space-y-6 md:space-y-8">
                     {educationData.map((edu, index) => (
                         <div key={index} className="edu-card opacity-0">
-                            <EducationCard edu={edu} />
+                            <EducationCard edu={edu} index={index} />
                         </div>
                     ))}
                 </div>

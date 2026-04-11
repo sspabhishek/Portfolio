@@ -9,6 +9,9 @@ const projectData = {
     { name: 'QuizWizard UI Revamp', slug: 'mobile-fitness-app', type: 'Internship', tags: ['AWS Lambda', 'Stripe', 'UI/UX'] },
     { name: 'Flutter Health App', slug: 'developer-tools-cli', type: 'Internship', tags: ['Flutter', 'Fitbit API', 'HealthKit'] },
   ],
+  'Client Projects': [
+    { name: 'Daughters Medical', slug: 'daughters-medical', type: 'Full-Stack', tags: ['Next.js', 'Tailwind CSS', 'AWS Cognito', 'SEO'] },
+  ],
 };
 
 const allSlugs = Object.values(projectData)

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import ThemeProvider from '@/components/shared/ThemeProvider';
 import Header from '@/components/shared/Header';
-import ThemeToggle from '@/components/shared/ThemeToggle';
 
 export const metadata: Metadata = {
     title: 'Abhishek | Developer Portfolio',
@@ -13,12 +12,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" data-theme="classic" suppressHydrationWarning>
+        <html lang="en" data-theme="cli" suppressHydrationWarning>
             <body className="min-h-screen">
                 <ThemeProvider>
                     <Header />
                     <main>{children}</main>
-                    <ThemeToggle />
                 </ThemeProvider>
             </body>
         </html>

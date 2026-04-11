@@ -54,12 +54,6 @@ export default function Contact() {
         window.location.href = `mailto:abhishekprajapati243@gmail.com?subject=${subject}&body=${body}`;
     };
 
-    const inputStyle = {
-        backgroundColor: 'var(--bg-secondary)',
-        color: 'var(--text-primary)',
-        borderColor: 'var(--border)',
-    };
-
     return (
         <section
             ref={sectionRef}
@@ -69,28 +63,45 @@ export default function Contact() {
         >
             <div className="max-w-3xl mx-auto">
                 <div className="section-heading-contact text-center mb-16 opacity-0">
-                    <p
-                        className="text-sm font-medium tracking-[0.3em] uppercase mb-4"
-                        style={{ color: 'var(--accent)' }}
-                    >
-                        Get In Touch
-                    </p>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                    <p className="sketch-section-label mb-4">Get In Touch</p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ fontFamily: 'Kalam, cursive' }}>
                         Let&apos;s Work Together
                     </h2>
-                    <p style={{ color: 'var(--text-secondary)' }} className="max-w-xl mx-auto">
+                    <p
+                        className="max-w-xl mx-auto"
+                        style={{ color: 'var(--text-secondary)', fontFamily: 'Patrick Hand, cursive', fontSize: '1.15rem' }}
+                    >
                         Have a project in mind? Let&apos;s talk about how I can help bring your vision to life.
                     </p>
                 </div>
 
-                <div className="contact-form-container rounded-card p-8 md:p-12 glass opacity-0">
+                <div
+                    className="contact-form-container sketch-card relative p-8 md:p-12 opacity-0"
+                    style={{ transform: 'rotate(-0.3deg)' }}
+                >
+                    {/* Tape decoration at top */}
+                    <div
+                        className="absolute -top-3 left-1/2 -translate-x-1/2 z-10"
+                        style={{
+                            width: '90px',
+                            height: '24px',
+                            background: 'rgba(200, 200, 180, 0.55)',
+                            borderRadius: '2px',
+                            transform: 'translateX(-50%) rotate(1deg)',
+                        }}
+                    />
+
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label
                                     htmlFor="name"
-                                    className="block text-sm font-medium mb-2"
-                                    style={{ color: 'var(--text-secondary)' }}
+                                    className="block mb-2"
+                                    style={{
+                                        color: 'var(--text-secondary)',
+                                        fontFamily: 'Kalam, cursive',
+                                        fontSize: '1.1rem',
+                                    }}
                                 >
                                     Name
                                 </label>
@@ -100,16 +111,19 @@ export default function Contact() {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 rounded-lg border theme-transition focus:outline-none"
-                                    style={inputStyle}
+                                    className="sketch-input"
                                     placeholder="John Doe"
                                 />
                             </div>
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className="block text-sm font-medium mb-2"
-                                    style={{ color: 'var(--text-secondary)' }}
+                                    className="block mb-2"
+                                    style={{
+                                        color: 'var(--text-secondary)',
+                                        fontFamily: 'Kalam, cursive',
+                                        fontSize: '1.1rem',
+                                    }}
                                 >
                                     Email
                                 </label>
@@ -119,8 +133,7 @@ export default function Contact() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 rounded-lg border theme-transition focus:outline-none"
-                                    style={inputStyle}
+                                    className="sketch-input"
                                     placeholder="john@example.com"
                                 />
                             </div>
@@ -128,8 +141,12 @@ export default function Contact() {
                         <div>
                             <label
                                 htmlFor="message"
-                                className="block text-sm font-medium mb-2"
-                                style={{ color: 'var(--text-secondary)' }}
+                                className="block mb-2"
+                                style={{
+                                    color: 'var(--text-secondary)',
+                                    fontFamily: 'Kalam, cursive',
+                                    fontSize: '1.1rem',
+                                }}
                             >
                                 Message
                             </label>
@@ -139,24 +156,24 @@ export default function Contact() {
                                 onChange={(e) => setMessage(e.target.value)}
                                 required
                                 rows={5}
-                                className="w-full px-4 py-3 rounded-lg border theme-transition focus:outline-none resize-none"
-                                style={inputStyle}
+                                className="sketch-input resize-none"
                                 placeholder="Tell me about your project..."
                             />
                         </div>
                         <button
                             type="submit"
-                            className="w-full py-4 rounded-card font-semibold text-sm tracking-wide uppercase theme-transition"
-                            style={{
-                                backgroundColor: 'var(--accent)',
-                                color: 'var(--bg-primary)',
-                            }}
+                            className="sketch-btn w-full justify-center"
+                            style={{ fontSize: '1.2rem' }}
                         >
-                            Send Message
+                            ✉ Send Message
                         </button>
                         <p
-                            className="text-center text-xs mt-4"
-                            style={{ color: 'var(--text-muted)' }}
+                            className="text-center mt-4"
+                            style={{
+                                color: 'var(--text-muted)',
+                                fontFamily: 'Patrick Hand, cursive',
+                                fontSize: '0.9rem',
+                            }}
                         >
                             This will open your default email client via mailto.
                         </p>

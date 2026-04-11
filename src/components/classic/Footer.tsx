@@ -35,7 +35,7 @@ export default function Footer() {
         <footer
             className="theme-transition section-padding pb-8"
             style={{
-                borderTop: '1px solid var(--border)',
+                borderTop: '3px dashed var(--border)',
                 backgroundColor: 'var(--bg-secondary)',
             }}
         >
@@ -45,14 +45,18 @@ export default function Footer() {
                     <div>
                         <Link
                             href="/"
-                            className="text-2xl font-bold mb-4 inline-block"
-                            style={{ color: 'var(--accent)' }}
+                            className="text-3xl font-bold mb-4 inline-block"
+                            style={{ color: 'var(--accent)', fontFamily: 'Kalam, cursive' }}
                         >
                             A.
                         </Link>
                         <p
-                            className="text-sm leading-relaxed"
-                            style={{ color: 'var(--text-secondary)' }}
+                            className="leading-relaxed"
+                            style={{
+                                color: 'var(--text-secondary)',
+                                fontFamily: 'Patrick Hand, cursive',
+                                fontSize: '1.05rem',
+                            }}
                         >
                             Software Engineer passionate about building scalable systems
                             using MERN stack, AWS, and modern web technologies.
@@ -62,8 +66,12 @@ export default function Footer() {
                     {/* Quick Links */}
                     <div>
                         <h4
-                            className="text-sm font-semibold uppercase tracking-wider mb-4"
-                            style={{ color: 'var(--text-muted)' }}
+                            className="font-semibold uppercase tracking-wider mb-4 wavy-underline inline-block pb-1"
+                            style={{
+                                color: 'var(--text-primary)',
+                                fontFamily: 'Kalam, cursive',
+                                fontSize: '1.1rem',
+                            }}
                         >
                             Quick Links
                         </h4>
@@ -72,13 +80,17 @@ export default function Footer() {
                                 { href: '/#projects', label: 'Projects' },
                                 { href: '/#skills', label: 'Skills' },
                                 { href: '/#contact', label: 'Contact' },
-                                { href: '/cli', label: 'CLI Mode' },
                             ].map((link) => (
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
-                                        className="text-sm theme-transition hover:opacity-100 opacity-70"
-                                        style={{ color: 'var(--text-primary)' }}
+                                        className="theme-transition hover:line-through"
+                                        style={{
+                                            color: 'var(--text-primary)',
+                                            fontFamily: 'Patrick Hand, cursive',
+                                            fontSize: '1.05rem',
+                                            opacity: 0.8,
+                                        }}
                                     >
                                         {link.label}
                                     </Link>
@@ -90,8 +102,12 @@ export default function Footer() {
                     {/* Connect */}
                     <div>
                         <h4
-                            className="text-sm font-semibold uppercase tracking-wider mb-4"
-                            style={{ color: 'var(--text-muted)' }}
+                            className="font-semibold uppercase tracking-wider mb-4 wavy-underline inline-block pb-1"
+                            style={{
+                                color: 'var(--text-primary)',
+                                fontFamily: 'Kalam, cursive',
+                                fontSize: '1.1rem',
+                            }}
                         >
                             Connect
                         </h4>
@@ -102,8 +118,25 @@ export default function Footer() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-full flex items-center justify-center theme-transition glass glass-hover"
-                                    style={{ color: 'var(--text-primary)' }}
+                                    className="w-11 h-11 flex items-center justify-center theme-transition"
+                                    style={{
+                                        color: 'var(--text-primary)',
+                                        border: '2px solid var(--border)',
+                                        borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                                        backgroundColor: 'var(--bg-card)',
+                                        boxShadow: '2px 2px 0px 0px rgba(45,45,45,0.08)',
+                                        transition: 'transform 100ms ease, box-shadow 100ms ease',
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        const el = e.currentTarget as HTMLElement;
+                                        el.style.transform = 'rotate(-3deg) translate(1px, 1px)';
+                                        el.style.boxShadow = '1px 1px 0px 0px rgba(45,45,45,0.08)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        const el = e.currentTarget as HTMLElement;
+                                        el.style.transform = 'rotate(0deg)';
+                                        el.style.boxShadow = '2px 2px 0px 0px rgba(45,45,45,0.08)';
+                                    }}
                                     aria-label={social.label}
                                 >
                                     {social.icon}
@@ -113,11 +146,15 @@ export default function Footer() {
                         <a
                             href="/resume.pdf"
                             download
-                            className="inline-flex items-center gap-2 text-sm font-medium theme-transition"
-                            style={{ color: 'var(--accent)' }}
+                            className="inline-flex items-center gap-2 font-medium theme-transition"
+                            style={{
+                                color: 'var(--accent)',
+                                fontFamily: 'Patrick Hand, cursive',
+                                fontSize: '1.05rem',
+                            }}
                         >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                             Download Resume
                         </a>
@@ -126,10 +163,13 @@ export default function Footer() {
 
                 {/* Bottom bar */}
                 <div
-                    className="pt-8 text-center text-xs"
+                    className="pt-8 text-center"
                     style={{
-                        borderTop: '1px solid var(--border)',
+                        borderTop: '2px dashed var(--border)',
                         color: 'var(--text-muted)',
+                        fontFamily: 'Patrick Hand, cursive',
+                        fontSize: '0.95rem',
+                        opacity: 0.6,
                     }}
                 >
                     <p>© {new Date().getFullYear()} Abhishek. All rights reserved.</p>
