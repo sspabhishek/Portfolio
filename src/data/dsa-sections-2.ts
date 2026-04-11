@@ -2,7 +2,6 @@ import { DSASection } from './dsa-types';
 
 const lc = (slug: string) => `https://leetcode.com/problems/${slug}/`;
 const gfg = (slug: string) => `https://www.geeksforgeeks.org/problems/${slug}/1`;
-const cn = (slug: string) => `https://www.naukri.com/code360/problems/${slug}`;
 const tuf = (slug: string) => `https://takeuforward.org/plus/dsa/problems/${slug}`;
 
 export const dsaSections2: DSASection[] = [
