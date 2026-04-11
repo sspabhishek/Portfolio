@@ -49,22 +49,24 @@ export default function Header() {
                 </Link>
 
                 {/* Desktop Nav */}
-                <ul className="hidden md:flex items-center gap-8">
-                    {navLinks.map((link) => (
-                        <li key={link.href}>
-                            <Link
-                                href={link.href}
-                                className="text-lg theme-transition hover:opacity-100 opacity-70"
-                                style={{
-                                    color: 'var(--text-primary)',
-                                    fontFamily: isCliMode ? 'JetBrains Mono, monospace' : 'Patrick Hand, cursive',
-                                }}
-                            >
-                                {isCliMode ? `> ${link.label.toLowerCase()}` : link.label}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                {!isCliMode && (
+                    <ul className="hidden md:flex items-center gap-8">
+                        {navLinks.map((link) => (
+                            <li key={link.href}>
+                                <Link
+                                    href={link.href}
+                                    className="text-lg theme-transition hover:opacity-100 opacity-70"
+                                    style={{
+                                        color: 'var(--text-primary)',
+                                        fontFamily: 'Patrick Hand, cursive',
+                                    }}
+                                >
+                                    {link.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                )}
 
                 {/* Mode Toggle + Mobile Menu */}
                 <div className="flex items-center gap-3">
@@ -112,29 +114,31 @@ export default function Header() {
                     </button>
 
                     {/* Mobile Hamburger */}
-                    <button
-                        className="md:hidden flex flex-col gap-1.5 p-2"
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        aria-label="Toggle menu"
-                        aria-expanded={menuOpen}
-                    >
-                        <span
-                            className={`block w-5 h-0.5 theme-transition origin-center ${menuOpen ? 'rotate-45 translate-y-[4px]' : ''}`}
-                            style={{ backgroundColor: 'var(--text-primary)' }}
-                        />
-                        <span
-                            className={`block w-5 h-0.5 theme-transition ${menuOpen ? 'opacity-0' : ''}`}
-                            style={{ backgroundColor: 'var(--text-primary)' }}
-                        />
-                        <span
-                            className={`block w-5 h-0.5 theme-transition origin-center ${menuOpen ? '-rotate-45 -translate-y-[4px]' : ''}`}
-                            style={{ backgroundColor: 'var(--text-primary)' }}
-                        />
-                    </button>
+                    {!isCliMode && (
+                        <button
+                            className="md:hidden flex flex-col items-center justify-center gap-1.5 w-10 h-10"
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            aria-label="Toggle menu"
+                            aria-expanded={menuOpen}
+                        >
+                            <span
+                                className={`block w-6 h-0.5 theme-transition origin-center ${menuOpen ? 'rotate-45 translate-y-[8px]' : ''}`}
+                                style={{ backgroundColor: 'var(--text-primary)' }}
+                            />
+                            <span
+                                className={`block w-6 h-0.5 theme-transition ${menuOpen ? 'opacity-0' : ''}`}
+                                style={{ backgroundColor: 'var(--text-primary)' }}
+                            />
+                            <span
+                                className={`block w-6 h-0.5 theme-transition origin-center ${menuOpen ? '-rotate-45 -translate-y-[8px]' : ''}`}
+                                style={{ backgroundColor: 'var(--text-primary)' }}
+                            />
+                        </button>
+                    )}
                 </div>
 
                 {/* Mobile Menu Dropdown */}
-                {menuOpen && (
+                {!isCliMode && menuOpen && (
                     <div
                         className="absolute top-full left-0 right-0 md:hidden theme-transition"
                         style={{
@@ -150,7 +154,7 @@ export default function Header() {
                                         className="text-xl theme-transition"
                                         style={{
                                             color: 'var(--text-primary)',
-                                            fontFamily: isCliMode ? 'JetBrains Mono, monospace' : 'Patrick Hand, cursive',
+                                            fontFamily: 'Patrick Hand, cursive',
                                         }}
                                         onClick={() => setMenuOpen(false)}
                                     >
